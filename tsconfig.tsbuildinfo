@@ -1,0 +1,1 @@
+{"root":["./src/index.ts","./src/controllers/studenttracker.ts","./src/interfaces/studenttracker.ts","./src/middlewares/errorhandler.ts","./src/middlewares/validator.ts","./src/models/student.ts","./src/routes/index.ts","./src/routes/studenttracker.ts","./src/schemas/studenttracker.ts","./src/services/studenttracker.ts"],"version":"5.9.3"}
