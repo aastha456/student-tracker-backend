@@ -42,3 +42,36 @@ export const fetchStudentById = async (id: string) => {
     }   
     return student;
 }
+
+export const deleteStudentById = async (id: string) => {
+    const index = students.findIndex(student => student.id === id);
+    const notFoundError: NotFoundError = {
+        message: "Student not found",
+        status: 404
+    }   
+    if (index === -1) {
+        throw notFoundError;
+    }
+    students.splice(index, 1);
+    return;
+}
+
+export const updateStudentById = async (id: string, data: StudentRequest) => {
+    const student = students.find(student => student.id === id);
+    const notFoundError: NotFoundError = {
+        message: "Student not found",
+        status: 404
+    }
+    if (!student) {
+        throw notFoundError;
+    }   
+    student.name = data.name;
+    student.grade = data.grade;
+    student.phoneNumber = data.phoneNumber;
+    student.rollNumber = data.rollNumber;
+    student.gender = data.gender;
+    
+    return student;
+
+}
+   
