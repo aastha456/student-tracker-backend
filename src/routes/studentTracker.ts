@@ -10,4 +10,8 @@ router.get('/', validateQueryParams(fetchAllQuerySchema), studentTrackerControll
 router.post('/', validateRequestBody(createStudentSchema), studentTrackerController.createStudent);
 
 router.get('/:id', validateRequestParams(fetchIdParamSchema), studentTrackerController.fetchStudentById);
+
+router.delete('/:id', validateRequestParams(fetchIdParamSchema), studentTrackerController.deleteStudentById);
+
+router.put('/:id', validateRequestParams(fetchIdParamSchema), validateRequestBody(createStudentSchema), studentTrackerController.updateStudentById);
 export default router;
