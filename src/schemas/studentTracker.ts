@@ -9,7 +9,7 @@ export const createStudentSchema = z.object({
 })
 
 export const fetchIdParamSchema = z.object({
-    id: z.string().uuid("Invalid ID format")
+    id: z.string().min(24, "Invalid ID format")
 })
 
 export const fetchAllQuerySchema = z.object({
