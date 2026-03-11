@@ -82,7 +82,6 @@ export const updateStudentById = async (
         res.status(200).json({
             data: response
         })
-
     }
     catch(error) {
         next(error)
