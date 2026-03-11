@@ -1,29 +1,17 @@
-import { Student, StudentRequest } from "../interfaces/studentTracker";
-import { students } from "../models/student";
+import { StudentRequest } from "../interfaces/studentTracker";
+import studentModel from "../models/student";
 
 export const create = async (data: StudentRequest) => {
-    console.log(data)
-
-    const dataToCreate: Student = {
-        id: crypto.randomUUID(),
-        name: data.name,
-        grade: data.grade,
-        phoneNumber: data.phoneNumber,
-        rollNumber: data.rollNumber,
-        gender: data.gender
-    }
-    students.push(dataToCreate);
-    console.log(students);
-    return dataToCreate;
-
+    const student = await studentModel.create(data);
+    return student;
 }
 
 export const fetchAll = async (req: any) => {
     const { gender } = req;
     if (gender) {
-        return students.filter(student => student.gender === gender);
+        return studentModel.find({ gender });
     }
-    return students;
+    return await studentModel.find();
 }
 
 interface NotFoundError {
@@ -32,7 +20,7 @@ interface NotFoundError {
 }
 
 export const fetchStudentById = async (id: string) => {
-    const student = students.find(student => student.id === id);
+    const student = await studentModel.findById(id);
     const notFoundError: NotFoundError = {
         message: "Student not found",
         status: 404
@@ -44,20 +32,19 @@ export const fetchStudentById = async (id: string) => {
 }
 
 export const deleteStudentById = async (id: string) => {
-    const index = students.findIndex(student => student.id === id);
+    const student = await studentModel.findByIdAndDelete(id);
     const notFoundError: NotFoundError = {
         message: "Student not found",
         status: 404
     }   
-    if (index === -1) {
+    if (!student) {
         throw notFoundError;
     }
-    students.splice(index, 1);
-    return;
+    return student;
 }
 
 export const updateStudentById = async (id: string, data: StudentRequest) => {
-    const student = students.find(student => student.id === id);
+    const student = await studentModel.findByIdAndUpdate(id, data, { new: true });
     const notFoundError: NotFoundError = {
         message: "Student not found",
         status: 404
@@ -65,12 +52,6 @@ export const updateStudentById = async (id: string, data: StudentRequest) => {
     if (!student) {
         throw notFoundError;
     }   
-    student.name = data.name;
-    student.grade = data.grade;
-    student.phoneNumber = data.phoneNumber;
-    student.rollNumber = data.rollNumber;
-    student.gender = data.gender;
-    
     return student;
 
 }
