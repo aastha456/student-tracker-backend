@@ -2,8 +2,8 @@ import express from 'express';
 import routes from './routes';
 import { errorHandler } from './middlewares/errorHandler';
 import { connectDB }  from './config/db';
-
 import dotenv from 'dotenv';
+import cors from 'cors';
 
 dotenv.config();
 const app = express();
@@ -14,6 +14,8 @@ connectDB();
 
 //used to parse json in requets body 
 app.use(express.json());
+
+app.use(cors());
 
 
 app.listen(3000, () => {
