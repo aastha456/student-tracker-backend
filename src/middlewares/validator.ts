@@ -47,7 +47,7 @@ export const validateQueryParams = (schema: z.ZodType<any>) => (
             errors: result.error.flatten()
         })
     }
-    req.query = result.data;
+    Object.assign(req.query, result.data);
     next();
 }
 

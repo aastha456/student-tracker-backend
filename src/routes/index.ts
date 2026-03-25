@@ -3,7 +3,7 @@ import studentTrackerRoutes from './studentTracker';
 
 const router = Router();
 
-router.use('/studentTracker', studentTrackerRoutes);
+router.use('/students', studentTrackerRoutes);
 
 export default router;
 
